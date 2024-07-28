@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="Profile">
+  <div class="mainsection">
+    <div class="profile_picture">
+      <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture"
+        class="profile-picture">
+    </div>
+    <div class="account_detail">
+      <div class="topline">
+        <h1>{{ profile.user.username }}</h1>
+        {% if profile.user == request.user %}
+        <a href="{% url 'Editprofile' %}" class="edit-profile-btn">Edit Profile</a>
+        {% endif %}
+      </div>
+      <div class="middleline">
+        <ul>
+          <li><a href=""><span>{{postcount}}</span>posts</a></li>
+          <li><a href=""><span>0</span>followers</a></li>
+          <li><a href=""><span>0</span>following</a></li>
+        </ul>
+      </div>
+      <div class="bio">
+        <p>{{ profile.bio }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="posts">
+    {% for post in posts %}
+    <div class="post">
+      <img src="{{post.image.url}}" alt="xyz">
+      <div class="action">
+        <button><a href="deletepost/{{post.id}}">Delete</a></button>
+        <button id="edit"><a href="{% url 'editpost' post.id %}">Edit</a></button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

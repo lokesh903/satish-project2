@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="edit-profile-container">
+    <h2>Edit Profile</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio" rows="3">{{ profile.bio }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="profile_picture">Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture">
+        </div>
+        <button type="submit" class="save-changes-btn">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

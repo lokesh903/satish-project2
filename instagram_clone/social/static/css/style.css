@@ -1,0 +1,506 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav {
+    height: 8vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav .logo {
+    width: 20%;
+    margin-left: 20%;
+}
+
+.nav .logo h1 {
+    font-weight: bold;
+    padding: 14px;
+    font-size: 25px;
+}
+
+.nav .menu {
+    max-width: 400px;
+    display: flex;
+    justify-content: space-around;
+    margin-right: 25%;
+}
+
+.nav .menu .login {
+    width: 80px;
+    height: 35px;
+    background-color: #1877F2;
+    margin-top: 10px;
+    border-radius: 7px;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-weight: bold;
+}
+
+.nav .menu .login a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+}
+
+.nav .menu .signup {
+    margin-left: 20px;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+}
+
+.nav .menu .signup a {
+    text-decoration: none;
+    font-size: 15px;
+    color: #1877F2;
+}
+
+/*===================Register Form==================*/
+.main {
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.main .form {
+    max-width: 400px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 20px auto;
+}
+
+.main .form h1 {
+    margin-bottom: 20px;
+}
+
+.main .form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.main .form form input[type="text"],
+.main .form form input[type="email"],
+.main .form form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.main .form form label {
+    margin: 10px 0 5px;
+    display: block;
+    font-weight: bold;
+}
+
+.main .form form button {
+    background-color: #0095f6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.main .form a {
+    color: #262626;
+    margin-top: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/*======================LoginForm=================*/
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fafafa;
+}
+
+.loginform {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 1px;
+    padding: 20px;
+    width: 350px;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background-color: #0095f6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.loginform a {
+    position: relative;
+    top: 20px;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+
+/*================sidebar======================*/
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.container .sidebar {
+    width: 250px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    overflow-y: auto;
+}
+.container .sidebar h2{
+    margin-bottom: 50px;
+    margin-top: 20px;
+    padding: 10px 15px;
+}
+.container .sidebar .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.container .sidebar .sidebar-nav li {
+    margin-bottom: 10px;
+}
+.container .sidebar .sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.container .sidebar .sidebar-nav li a span {
+    margin-left: 10px;
+}
+.container .sidebar .sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+    background-color: #e0e0e0;
+    color: #000;
+}
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+
+/*===================Profile++++++++++++=======*/
+.Profile {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 100px;
+}
+.mainsection{
+    width: 100%;
+    display: flex;
+    border-bottom: 2px solid #ccc;
+}
+.mainsection .profile_picture .profile-picture{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.mainsection .account_detail{
+    margin-left: 60px;
+}
+.mainsection .account_detail .topline{
+    display: flex;
+    margin-top: 20px;
+}
+.mainsection .account_detail .topline .edit-profile-btn{
+    display: block;
+    padding: 10px 15px;
+    background-color: #ccc;
+    color: black;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 150px;
+}
+.mainsection .account_detail .middleline ul{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+.mainsection .account_detail .middleline ul li{
+    list-style: none;
+}
+.mainsection .account_detail .middleline ul li a{
+    text-decoration: none;
+    font-size: 16px;
+    color: gray;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mainsection .account_detail .middleline ul li a span{
+    margin-right: 5px;
+}
+
+
+
+
+.Profile .posts {
+    background-color: #fefefe;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Profile .posts .post {
+    max-width: 300px;
+    height: 40vh;
+    background-color: #1877F2;
+    margin-left: 5px;
+}
+
+.Profile .posts .post img {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+/*===============Edit Profile======================*/
+.edit-profile-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*======================UserPost=================*/
+.posts {
+    background-color: #fefefe;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 40px auto;
+}
+
+.posts .post {
+    height: 60vh;
+    width: 350px;
+    background-color: #ccc;
+    margin-top: 20px;
+}
+
+.posts .post .image {
+    height: 50vh;
+    width: 100%;
+}
+
+.posts .post .image img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: calc();
+}
+
+.posts .post .action {
+    display: flex;
+    background-color: #e0e0e0;
+    height: 10vh;
+}
+.posts .post .action button {
+    border: 0;
+    outline: 0;
+    margin-top: 15px;
+    height: 30px;
+}
+.posts .post .action #edit {
+    margin-left: 20px;
+}
+
+.posts .post .action button a {
+    text-decoration: none;
+    color: black;
+}
+/*===============Home============*/
+.postlist {
+    max-width: 400px;
+    background-color: #fefefe;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 40px auto;
+}
+.postlist .post {
+    height: 60vh;
+    max-width: 350px;
+    background-color: #ccc;
+    margin-top: 20px;
+}
+.postlist .post .image {
+    height: 50vh;
+    width: 100%;
+}
+
+.postlist .post .image img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+
+.postlist .post .action {
+    display: flex;
+}
+
+.postlist .post .action button {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    padding: 20px;
+}
+
+.postlist .post .action button i {
+    font-size: 30px;
+    color: black;
+}
+
+
+/*===================CreatePost======================*/
+
+.createpost {
+    width: 100%;
+    background-color: #ffff;
+}
+
+.createpost .postform {
+    max-width: 400px;
+    background-color: #f9f4f4;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.createpost .postform .form-group {
+    padding: 20px;
+    display: flex;
+    margin-top: 10px;
+}
+
+.createpost .postform form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.createpost .postform input[type='text'] {
+    width: 90%;
+    padding: 12px;
+}
+
+
+
+/*=========comment form============*/
+
+.comment-container {
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 1;
+  }
+  .add-comment-btn {
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+  }
+  .commentx {
+    position: absolute;
+    width: 300px;
+    z-index: 10;
+  }
+  .commentx.hidden {
+    display: none;
+  }
+  .commentform form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .commentx .commentform form input[type="text"]{
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 10;
+  }

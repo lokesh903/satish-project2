@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block container %}
+<div class="edit">
+    <div class="editform">
+        <form action="" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value='save'>
+        </form>
+    </div>
+</div>
+{% endblock container %}

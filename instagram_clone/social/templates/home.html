@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block container %}
+<div class="postlist">
+    {% for post in posts %}
+    <div class="post">
+        <div class="image">
+            <img src="{{post.image.url}}" alt="xyz">
+        </div>
+        <div class="action">
+            <button><i class="fa-regular fa-heart"></i></button>
+            {% if user.is_authenticated %}
+            <div class="comment-container">
+                <button class="add-comment-btn" onclick="openCommentForm(this)">
+                    <i class="fa-regular fa-comment"></i>
+                </button>
+                <div class="commentx hidden" id="commentx-{{ post.id }}">
+                    <div class="commentform">
+                        <form action="{% url 'addcomment' post_id=post.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="text" placeholder="Comment" required>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock container %}

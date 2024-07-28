@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block container %}
+<div class="createpost">
+    <div class="postform">
+        <form action="{% url 'createpost' %}" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{form}}
+            <input type="submit">
+        </form>
+    </div>
+</div>
+{% endblock container %}

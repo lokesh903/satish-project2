@@ -1,0 +1,37 @@
+{% block header %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="https://kit.fontawesome.com/cb91b67637.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Instagram</h2>
+            <ul class="sidebar-nav">
+                <li><a href="home" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
+                <li><a href="profile"><i class="fa-solid fa-user"></i><span>Profile</span></a></li>
+                <li><a href="createpost"><i class="fa-solid fa-plus"></i><span>Create Post</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></a></li>
+                <li><a href="#"><i class="fa-brands fa-wpexplorer"></i><span>Explore</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="logout"><i class="fa-solid fa-power-off"></i><span>Logout</span></a></li>
+
+            </ul>
+        </div>
+        <div class="content">
+            {% block container %}{% endblock container %}
+        </div>
+    </div>
+    
+    {% endblock header %}
+    {% block footer %}
+</body>
+</html>
+{% endblock footer %}
