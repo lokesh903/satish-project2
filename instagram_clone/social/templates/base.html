@@ -11,6 +11,12 @@
     <script src="https://kit.fontawesome.com/cb91b67637.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags %}
+    <script>alert("{{message}}")</script>{% endif %}
+    {% endfor %}
+    {% endif %}
     <div class="container">
         <div class="sidebar">
             <h2>Instagram</h2>

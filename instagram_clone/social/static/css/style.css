@@ -504,3 +504,33 @@ button {
     border-radius: 4px;
     z-index: 10;
   }
+
+
+
+
+
+
+
+
+  /*=============Story================*/
+
+  .head{
+    width: 80%;
+  }
+  .head .stories{
+    display: flex;
+    margin-left: 100px;
+  }
+  .head .stories .profile{
+    height: 60px;
+    width: 60px;
+  }
+  .head .stories .story{
+    margin-left: 50px;
+  }
+  .head .stories .profile a img{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    border-radius: 50%;
+  }

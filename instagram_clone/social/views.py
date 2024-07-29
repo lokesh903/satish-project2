@@ -2,11 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
-from .models import Profile,Post,Comment
+from .models import Profile,Post,Comment,like,Story,Follow
 from django.contrib.auth.decorators import login_required
-from .forms import postform,postedit
-
-
+from .forms import postform,postedit,storyform
+from django.urls import reverse
 
 
 def Registration(req):
@@ -52,10 +51,10 @@ def profile(req):
     user=req.user
     try:
         profile=Profile.objects.get(user=user)
-        posts=Post.objects.filter(user__username=user.username)
-        postcount=posts.count
     except Profile.DoesNotExist:
         profile = Profile.objects.create(user=user)
+    posts=Post.objects.filter(user__username=user.username)
+    postcount=posts.count()
     return render(req,'Profile.html',{'profile':profile,'posts':posts,'postcount':postcount})
 
 @login_required
@@ -74,9 +73,14 @@ def Editprofile(req):
     return render(req, 'Editprofile.html',{'profile': profile})
 
 def home(req):
+    user=req.user
     posts=Post.objects.all()
-    return render(req,'home.html',{'posts':posts})
-
+    stories=Story.objects.all()
+    try:
+        profile=Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile=Profile.objects.create(user=user)
+    return render(req,'home.html',{'posts':posts,'profile':profile,'stories':stories})
 
 def createpost(req):
     if req.method=='POST':
@@ -127,3 +131,65 @@ def addcomment(req, post_id):
             return redirect('home')
     return render(req, 'home.html', {'post_id': post_id})
     
+def addstory(req):
+    user = req.user
+    profile = Profile.objects.get(user=user)  
+    if req.method == 'POST':
+        form = storyform(req.POST, req.FILES)
+        if form.is_valid():
+            story = form.save(commit=False)
+            story.user = user
+            story.profile = profile
+            story.save()
+            messages.success(req, 'Story added successfully')
+            return redirect('home')
+        else:
+            messages.error(req, 'Something went wrong')
+            return render(req, 'Story.html', {'form': form})
+    else:
+        form = storyform()
+        return render(req, 'Story.html', {'form': form})
+
+def viewstory(req,str_id):
+    stories=Story.objects.get(id=str_id)
+    return render(req,'viewstory.html',{'stories':stories})
+
+def likeview(req,post_id):
+    user=req.user
+    post=Post.objects.get(id=post_id)
+    current_likes=post.likes
+    liked=like.objects.filter(user=user,post=post).count()
+    if not liked:
+        liked=like.objects.create(user=user,post=post)
+        current_likes=current_likes+1
+    else:
+        liked=like.objects.filter(user=user,post=post).delete()
+        current_likes=current_likes-1
+    post.likes=current_likes
+    post.save()
+    return redirect(reverse('home'))
+
+def favorite(req,post_id):
+    user=req.user
+    post=Post.objects.get(id=post_id)
+    profile=Profile.objects.get(user=user)
+    if profile.favorite.filter(id=post_id).exists():
+        profile.favorite.remove(post)
+    else:
+        profile.favorite.add(post)
+    return redirect(reverse('home'))
+
+def favoritepostlist(req):
+    user=req.user
+    profile=user.profile
+    favorite_post=profile.favorite.all()
+
+    return render(req,'favoritepost.html',{'favorite_post':favorite_post})
+
+
+
+    
+
+def users(req):
+    users=User.objects.all()
+    return render(req,'Follow.html',{'users':users})
