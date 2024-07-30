@@ -2,10 +2,11 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
-from .models import Profile,Post,Comment,like,Story,Follow
+from .models import Profile,Post,Comment,like,Story
 from django.contrib.auth.decorators import login_required
 from .forms import postform,postedit,storyform
 from django.urls import reverse
+
 
 
 def Registration(req):
@@ -55,7 +56,9 @@ def profile(req):
         profile = Profile.objects.create(user=user)
     posts=Post.objects.filter(user__username=user.username)
     postcount=posts.count()
-    return render(req,'Profile.html',{'profile':profile,'posts':posts,'postcount':postcount})
+    following=profile.following.count()
+    follower=profile.follower.count()
+    return render(req,'Profile.html',{'profile':profile,'posts':posts,'postcount':postcount,'following':following,'follower':follower})
 
 @login_required
 def Editprofile(req):
@@ -80,7 +83,8 @@ def home(req):
         profile=Profile.objects.get(user=user)
     except Profile.DoesNotExist:
         profile=Profile.objects.create(user=user)
-    return render(req,'home.html',{'posts':posts,'profile':profile,'stories':stories})
+    allprofile=Profile.objects.all()
+    return render(req,'home.html',{'posts':posts,'profile':profile,'stories':stories,'allprofile':allprofile})
 
 def createpost(req):
     if req.method=='POST':
@@ -186,10 +190,29 @@ def favoritepostlist(req):
 
     return render(req,'favoritepost.html',{'favorite_post':favorite_post})
 
-
-
-    
-
 def users(req):
     users=User.objects.all()
     return render(req,'Follow.html',{'users':users})
+
+@login_required
+def follow_user(req,user_id):
+    user=req.user
+    profile=Profile.objects.get(user=user)
+    follow=Profile.objects.get(user=user_id)
+    if profile.following.filter(user=user_id).exists():
+        profile.following.remove(follow)
+    else:
+        profile.following.add(follow)
+    return redirect('profile')
+
+def following_users(req):
+    user=req.user
+    profile=Profile.objects.get(user=user)
+    following=profile.following.all()
+    return render(req,'Follow.html',{'following':following})
+
+def follower_list(req):
+    user=req.user
+    profile=Profile.objects.get(user=user)
+    follower=profile.follower.all()
+    return render(req,'FollowerList.html',{'follower':follower})

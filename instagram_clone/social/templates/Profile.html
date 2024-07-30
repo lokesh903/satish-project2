@@ -17,14 +17,19 @@
       <div class="middleline">
         <ul>
           <li><a href=""><span>{{postcount}}</span>posts</a></li>
-          <li><a href=""><span>0</span>followers</a></li>
-          <li><a href=""><span>0</span>following</a></li>
+          <li><a href="follower_list"><span>{{follower}}</span>followers</a></li>
+          <li><a href="following_users"><span>{{following}}</span>following</a></li>
         </ul>
       </div>
       <div class="bio">
         <p>{{ profile.bio }}</p>
       </div>
     </div>
+  </div>
+  <div class="topnavigation">
+    <a href=""><i class="fa-solid fa-clipboard-user"></i><span>posts</span></a>
+    <a href="favoritepostlist"><i class="fa-regular fa-bookmark"></i><span>saved</span></a>
+    <a href=""><span>tagged</span></a>
   </div>
   <div class="posts">
     {% for post in posts %}

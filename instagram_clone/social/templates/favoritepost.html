@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block container %}
+    <div class="favorite_post">
+    {% if favorite_post %}
     {% for i in favorite_post %}
-    <h1>{{i.caption}}</h1>
+    <div class="post">
+        <div class="image">
+            <img src="{{i.image.url}}" alt="">
+        </div>
+        <div class="caption">
+            <p>{{i.caption}}</p>
+        </div>
+
+    </div>
     {% endfor %}
-</body>
-</html>
+    {% else %}
+    <h1>No favorite post</h1>
+    {% endif %}
+{% endblock container %}

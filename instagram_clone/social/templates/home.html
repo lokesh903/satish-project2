@@ -4,57 +4,65 @@
 <div class="head">
     <div class="stories">
         <div class="profile story">
-            <a href="{% url 'addstory' %}"><img
-                    src="{{profile.profile_picture.url}}"
-                    alt=""></a>
+            <a href="{% url 'addstory' %}"><img src="{{profile.profile_picture.url}}" alt=""></a>
             <p style="text-align: center;">add story</p>
         </div>
         {% for story in stories %}
         <div class="profile" style="margin-left: 50px;">
             <a href="viewstory/{{story.id}}"><img style="border: 3px solid green;"
-                    src="{{story.profile.profile_picture.url}}"
-                    alt=""></a>
+                    src="{{story.profile.profile_picture.url}}" alt=""></a>
             <p style="text-align: center;">{{story.user.username}}</p>
         </div>
         {% endfor %}
     </div>
 </div>
-<div class="postlist">
-    {% for post in posts %}
-    <div class="post">
-        <div class="image">
-            <img src="{{post.image.url}}" alt="xyz">
-        </div>
-        <div class="action">
-            {% if user.is_authenticated %}
-            <a href="{% url 'likeview' post.id %}">
-                <button>
-                    <i class="fa-regular fa-heart">
-                        <span style="font-weight: 100;font-size: 14px;">{{ post.likes }}</span>
-                    </i>
-                </button>
-            </a>
-            <div class="comment-container">
-                <button class="add-comment-btn" onclick="openCommentForm(this)">
-                    <i class="fa-regular fa-comment"></i>
-                </button>
-                <div class="commentx hidden" id="commentx-{{ post.id }}">
-                    <div class="commentform">
-                        <form action="{% url 'addcomment' post_id=post.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="text" name="text" placeholder="Comment" required>
-                        </form>
+<div class="home">
+    <div class="postlist">
+        {% for post in posts %}
+        <div class="post">
+            <div class="image">
+                <img src="{{post.image.url}}" alt="xyz">
+            </div>
+            <div class="action">
+                {% if user.is_authenticated %}
+                <a href="{% url 'likeview' post.id %}">
+                    <button>
+                        <i class="fa-regular fa-heart">
+                            <span style="font-weight: 100;font-size: 14px;">{{ post.likes }}</span>
+                        </i>
+                    </button>
+                </a>
+                <div class="comment-container">
+                    <button class="add-comment-btn" onclick="openCommentForm(this)">
+                        <i class="fa-regular fa-comment"></i>
+                    </button>
+                    <div class="commentx hidden" id="commentx-{{ post.id }}">
+                        <div class="commentform">
+                            <form action="{% url 'addcomment' post_id=post.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" name="text" placeholder="Comment" required>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <a href="{% url 'favorite' post.id %}">
+                    <button>
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+                </a>
+                {% endif %}
             </div>
-            <a href="{% url 'favorite' post.id %}">
-                <button>
-                    <i class="fa-regular fa-bookmark"></i>
-                </button>
-            </a>
-            {% endif %}
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    <div class="allprofiles">
+        {% for p in allprofile  %}
+        <div class="pr">
+            <img src="{{p.profile_picture.url}}" alt="">
+            <p>{{p.user.username}}</p>
+            <a href="follow_user/{{p.user.id}}">follow</a>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock container %}

@@ -23,7 +23,7 @@ class Profile(models.Model):
     created_on = models.DateField(default=datetime.date.today)
     updated_on = models.DateField(default=datetime.date.today)
     favorite=models.ManyToManyField(Post)
-    # following=models.ManyToManyField(User)
+    following=models.ManyToManyField('self', symmetrical=False, related_name='follower',blank=True)
 
     def __str__(self):
         return self.user.username
@@ -45,6 +45,7 @@ class Story(models.Model):
     profile=models.ForeignKey(Profile,on_delete=models.CASCADE)
     created_at=models.DateTimeField(default=timezone.now)
 
+
     def __str__(self):
         return self.user.username
 
@@ -54,11 +55,4 @@ class like(models.Model):
 
     def __str__(self):
         return self.user.username
-
-class Follow(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-    following=models.OneToOneField(User,on_delete=models.CASCADE,related_name='following', null=True)
-    followers=models.ManyToManyField(User,related_name='followers')
-
-    def __str__(self):
-        return self.user.username
+    

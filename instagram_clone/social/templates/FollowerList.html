@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block container %}
-{% if following %}
+{% if follower %}
 <div class="following">
-{% for follow in following %}
+{% for follow in follower %}
     <div class="user">
         <img src="{{follow.profile_picture.url}}" alt="">
         <p>{{follow.user.username}}</p>
