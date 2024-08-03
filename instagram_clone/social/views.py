@@ -6,6 +6,7 @@ from .models import Profile,Post,Comment,like,Story
 from django.contrib.auth.decorators import login_required
 from .forms import postform,postedit,storyform
 from django.urls import reverse
+import datetime
 
 
 
@@ -78,12 +79,13 @@ def Editprofile(req):
 def home(req):
     user=req.user
     posts=Post.objects.all()
-    stories=Story.objects.all()
+    time = datetime.datetime.now() - datetime.timedelta(hours=24)
+    stories=Story.objects.filter(created_at__gte=time)
     try:
         profile=Profile.objects.get(user=user)
     except Profile.DoesNotExist:
         profile=Profile.objects.create(user=user)
-    allprofile=Profile.objects.all()
+    allprofile=Profile.objects.exclude(user=user)
     return render(req,'home.html',{'posts':posts,'profile':profile,'stories':stories,'allprofile':allprofile})
 
 def createpost(req):
@@ -189,12 +191,6 @@ def favoritepostlist(req):
     favorite_post=profile.favorite.all()
 
     return render(req,'favoritepost.html',{'favorite_post':favorite_post})
-
-def users(req):
-    users=User.objects.all()
-    return render(req,'Follow.html',{'users':users})
-
-@login_required
 def follow_user(req,user_id):
     user=req.user
     profile=Profile.objects.get(user=user)

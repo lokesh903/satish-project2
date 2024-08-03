@@ -462,21 +462,36 @@ button {
     width: 100%;
     background-size: cover;
 }
+.postlist .post .caption {
+    height: 3vh;
+    font-size: 20px;
+    background-color:#ccc ;
+}
+.postlist .post .caption p,h4{
+    text-align: center;
+    margin-left: 20px;
+    padding-top: 5px;
+}
 
 .postlist .post .action {
     display: flex;
+    height: 7vh;
 }
 
 .postlist .post .action button {
     background-color: transparent;
     border: 0;
     outline: 0;
-    padding: 20px;
+    position: relative;
+    top: 0;
 }
 
 .postlist .post .action button i {
     font-size: 30px;
     color: black;
+    position: relative;
+
+    padding-top: 0px;
 }
 
 
@@ -596,16 +611,26 @@ button {
     flex-wrap: wrap;
   }
   .favorite_post .post{
-    max-width: 350px;
-    height:60vh;
+    width: 350px;
+    height:50vh;
     margin-bottom: 20px;
+    margin-left: 30px;
   }
   .favorite_post .post .image{
     width: 100%;
-    height: 50%;
+    height: 43vh;
   }
   .favorite_post .post .image img{
-    height: 100%;
     width: 100%;
+    height: 100%;
     background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .favorite_post .post .caption{
+    height: 7vh;
+    background-color: #ccc;
+  }
+  .favorite_post .post .caption p{
+    font-size: 22px;
+    padding: 10px;
   }
