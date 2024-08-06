@@ -1,17 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
 {% block container %}
 
 <div class="head">
     <div class="stories">
         <div class="profile story">
-            <a href="{% url 'addstory' %}"><img src="{{profile.profile_picture.url}}" alt=""></a>
+            <a href="{% url 'addstory' %}">
+                {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'images/avtar.jpg' %}" alt="Default Profile Picture">
+                {% endif %} </a>
             <p style="text-align: center;">add story</p>
         </div>
         {% for story in stories %}
-        <div class="profile" style="margin-left: 50px;">
-            <a href="viewstory/{{story.id}}"><img style="border: 3px solid green;"
-                    src="{{story.profile.profile_picture.url}}" alt=""></a>
-            <p style="text-align: center;">{{story.user.username}}</p>
+        <div class="profile" style="margin-left: 50px; text-align:center">
+            <a href="viewstory/{{story.id}}">
+                {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'images/avtar.jpg' %}" alt="Default Profile Picture">
+                {% endif %}
+            </a>
+                <p style="text-align: center;">{{story.user.username}}</p>
         </div>
         {% endfor %}
     </div>
@@ -62,9 +73,10 @@
     <div class="allprofiles">
         {% for p in allprofile %}
         <div class="pr">
-            <img src="{{p.profile_picture.url}}" alt="">
-            <p>{{p.user.username}}</p>
-            <a href="follow_user/{{p.user.id}}">follow</a>
+            <img src="{{p.profile_picture.url}}" alt="img"/>
+            <p>{{p.profile_picture.url}}</p>
+            <p>{{p.user__username}}</p>
+            <a href="follow_user/{{p.user__id}}">follow</a>
         </div>
         {% endfor %}
     </div>

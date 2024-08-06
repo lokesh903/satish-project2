@@ -4,31 +4,26 @@ from django.contrib import auth
 from django.contrib import messages
 from .models import Profile,Post,Comment,like,Story
 from django.contrib.auth.decorators import login_required
-from .forms import postform,postedit,storyform
+from .forms import postform,postedit,storyform,RegistrationForm,EditProfile
 from django.urls import reverse
 import datetime
+from django.db.models import Q
 
 
 
 def Registration(req):
     if req.method=='POST':
-        first_name=req.POST.get('first_name')
-        last_name=req.POST.get('last_name')
-        username=req.POST.get('username')
-        email=req.POST.get('email')
-        password=req.POST.get('password')
-
-        User.objects.create_user(
-            first_name=first_name,
-            last_name=last_name,
-            username=username,
-            email=email,
-            password=password
-        )
-        return redirect('Login')
+        form=RegistrationForm(req.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(req,"Successfully Registered")
+            return redirect('Login')
+        else:
+            messages.error(req,'All fields are required')
     else:
-        return render(req,'Registeration.html')
-
+        form=RegistrationForm()
+    return render(req,'Registration.html',{'form':form})
+        
 def Login(req):
     if req.method=='POST':
         username=req.POST.get('username')
@@ -49,6 +44,7 @@ def logout(req):
     auth.logout(req)
     return redirect('/')
 
+ 
 def profile(req):
     user=req.user
     try:
@@ -61,31 +57,30 @@ def profile(req):
     follower=profile.follower.count()
     return render(req,'Profile.html',{'profile':profile,'posts':posts,'postcount':postcount,'following':following,'follower':follower})
 
-@login_required
 def Editprofile(req):
-    user=req.user
-    try:
-       profile=Profile.objects.get(user=user)
-    except Profile.DoesNotExist:
-        profile = Profile(user=user)
+    profile=Profile.objects.get(user=req.user)
+    if req.method=='POST':
+        form=EditProfile(req.POST,req.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(req,"Successfully Updated")
+            return redirect('profile')
+        else:
+            messages.error(req,'All fields required')
+    else:
+        form=EditProfile(instance=profile)
+    return render(req,'Editprofile.html',{'form':form})
 
-    if req.method == 'POST':
-        profile.bio = req.POST.get('bio')
-        profile.profile_picture = req.FILES.get('profile_picture')
-        profile.save()
-        return redirect('profile')
-    return render(req, 'Editprofile.html',{'profile': profile})
 
 def home(req):
     user=req.user
     posts=Post.objects.all()
     time = datetime.datetime.now() - datetime.timedelta(hours=24)
     stories=Story.objects.filter(created_at__gte=time)
-    try:
-        profile=Profile.objects.get(user=user)
-    except Profile.DoesNotExist:
-        profile=Profile.objects.create(user=user)
-    allprofile=Profile.objects.exclude(user=user)
+    print(stories)
+    profile,created=Profile.objects.get_or_create(user=user)
+    allprofile=Profile.objects.exclude(user__is_superuser=True).exclude(user=user).values('user__username','profile_picture','user__id')
+    print([allprofile])
     return render(req,'home.html',{'posts':posts,'profile':profile,'stories':stories,'allprofile':allprofile})
 
 def createpost(req):
@@ -105,10 +100,15 @@ def createpost(req):
         return render(req,'postform.html',{'form':form})
 
 def deletepost(req,post_id):
-    post=Post.objects.get(id=post_id)
-    post.delete()
-    messages.success(req,'Deleted Successfully')
-    return redirect('home')
+    user=req.user
+    try:
+        post=Post.objects.get(id=post_id,user=user)
+        post.delete()
+        messages.success(req,'Deleted Successfully')
+        return redirect('home')
+    except:
+        messages.success(req,'you are not authorized to perform deletetion')
+        return redirect('home')
 
 def editpost(req,post_id):
     post=Post.objects.get(id=post_id)
@@ -119,7 +119,6 @@ def editpost(req,post_id):
             return redirect('home')
     else:
         form=postedit(instance=post)
-
     return render(req,'editpost.html',{'form':form ,'post':post})
 
 @login_required

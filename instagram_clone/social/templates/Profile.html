@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block container %}
 <div class="Profile">
   <div class="mainsection">
     <div class="profile_picture">
-      <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture"
-        class="profile-picture">
-    </div>
+      {% if profile.profile_picture %}
+      <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class='profile-picture'>
+  {% else %}
+      <img src="{% static 'images/avtar.jpg' %}" alt="Default Profile Picture" class='profile-picture'>
+  {% endif %}
+      </div>
     <div class="account_detail">
       <div class="topline">
         <h1>{{ profile.user.username }}</h1>

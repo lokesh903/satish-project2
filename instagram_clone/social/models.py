@@ -6,10 +6,10 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='post')
     image=models.ImageField(upload_to='images/')
     caption=models.CharField(max_length=50)
-    timestamps = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     likes=models.IntegerField(default=0)
 
 
@@ -19,7 +19,7 @@ class Post(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='images', default='https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=')
+    profile_picture = models.ImageField(upload_to='images/', default='')
     created_on = models.DateField(default=datetime.date.today)
     updated_on = models.DateField(default=datetime.date.today)
     favorite=models.ManyToManyField(Post)
