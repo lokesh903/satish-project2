@@ -73,7 +73,7 @@
     <div class="allprofiles">
         {% for p in allprofile %}
         <div class="pr">
-            <img src="{{p.profile_picture.url}}" alt="img"/>
+            <img src="/images/{{p.profile_picture}}" alt="img"/>
             <p>{{p.profile_picture.url}}</p>
             <p>{{p.user__username}}</p>
             <a href="follow_user/{{p.user__id}}">follow</a>
