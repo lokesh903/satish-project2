@@ -1,0 +1,54 @@
+{% block header %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+
+    <!-- Metadata -->
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <meta name="author" content="George W. Park">
+            <meta name="description" content="This project demonstrates how CSS grid (with flexbox and float fallback) can be used to re-create the layout of an Instagram profile page.">
+
+    <!-- Title -->
+            <title>Instagram Profile Layout</title>
+
+    <!-- External CSS Files -->
+            <link rel="stylesheet" href="{% static 'assets3/css/reset.css' %}">
+            <link rel="stylesheet" href="{% static 'assets3/css/style.css' %}">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+            <script src="https://kit.fontawesome.com/cb91b67637.js" crossorigin="anonymous"></script>
+        </head>
+        <body>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags %}
+                        <script>alert("{{message}}")</script>{% endif %}
+                {% endfor %}
+            {% endif %}
+            <div class="containers">
+                <div class="sidebar">
+                    <h2>Instagram</h2>
+                    <ul class="sidebar-nav">
+                        <li><a href="../index/" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
+                        <li><a href="profile"><i class="fa-solid fa-user"></i><span>Profile</span></a></li>
+                        <li><a href="../newpost/"><i class="fa-solid fa-plus"></i><span>Create Post</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></a></li>
+                        <li><a href="#"><i class="fa-brands fa-wpexplorer"></i><span>Explore</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                        <li><a href="../logout/"><i class="fa-solid fa-power-off"></i><span>Logout</span></a></li>
+
+                    </ul>
+                </div>
+                <div class="content">
+                    {% block container %}{% endblock container %}
+                </div>
+            </div>
+
+{% endblock header %}
+{% block footer %}
+    </body>
+    </html>
+{% endblock footer %}

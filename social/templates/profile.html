@@ -1,0 +1,102 @@
+{% extends "sidebar.html" %}
+{% load static %}
+{% block container %}
+<header>
+    <div class="container">
+
+        <div class="profile">
+
+            <div class="profile-image">
+                {% if profile.profile_picture %}
+                <img src="{{profile.profile_picture.url}}" alt="" style="width: 200px; height: 200px;">
+                {% else %}
+                <img src="{% static 'assets1/default-user.png' %}" alt="" style="width: 200px; height: 200px;">
+                {% endif %}
+            </div>
+            <div class="profile-user-settings">
+
+                <h1 class="profile-user-name">{{profile.user.username}}</h1>
+                {% if profile.user == request.user %}
+                <button class="btn profile-edit-btn"><a href="../Editprofile">Edit Profile</a></button>
+                <button class="btn profile-edit-btn"><a href="{% url 'archive' %}">Archive</a></button>
+                <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
+                        aria-hidden="true"></i></button>
+                {% else %}
+                {% if follow_status == True %}
+                <button class="btn profile-edit-btn"><a
+                        href="{% url 'follow' profile.user.username %}">Unfollow</a></button>
+                {% else %}
+                <button class="btn profile-edit-btn"><a
+                        href="{% url 'follow' profile.user.username %}">Follow</a></button>
+                {% endif %}
+                <button class="btn profile-edit-btn"><a href="{% url 'direct' profile.user.username %}">Message</a></button>
+                {% endif %}
+            </div>
+
+            <div class="profile-stats">
+
+                <ul>
+                    <li><span class="profile-stat-count">{{post_count}}</span> posts</li>
+                    <li><span class="profile-stat-count">{{follower_count}}</span> followers</li>
+                    <li><span class="profile-stat-count">{{following_count}}</span> following</li>
+                </ul>
+
+            </div>
+
+            <div class="profile-bio">
+
+                <p><span class="profile-real-name">{{profile.user.username}}</span> {{profile.bio}} 📷✈️🏕️</p>
+
+            </div>
+
+        </div>
+        <!-- End of profile section -->
+
+    </div>
+    <!-- End of container -->
+
+</header>
+
+<main>
+
+    <div class="container">
+        <div class="listbar"
+            style="height: 6vh; width: 100%; display: flex; text-align: center; justify-content: center; font-size: 13px; border-top: 1px solid gray;">
+            <li style="list-style: none; padding: 10px; margin-left: 40px;"><a href=""
+                    style="text-decoration: none; color: black; margin-right: 30px;">POSTS</a></li>
+            <li style="list-style: none; padding: 10px; margin-left: 0px;"><a href=""
+                    style="text-decoration: none; color: black; margin-left: 30px;">REELS</a></li>
+            <li style="list-style: none; padding: 10px; margin-left: 0px;"><a href=""
+                    style="text-decoration: none; color: black; margin-left: 50px;">SAVED</a></li>
+            <li style="list-style: none; padding: 10px; "><a href=""
+                    style="text-decoration: none; color: black; margin-left: 60px;">TAGGED</a></li>
+        </div>
+        <div class="gallery">
+            {% for post in posts %}
+            <div class="gallery-item" tabindex="0">
+                <a href="{%url 'postdetail' post.id %}" style="color: #fff;">
+                    <img src="{{post.picture.url}}" class="gallery-image" alt="">
+
+                    <div class="gallery-item-info">
+
+                        <ul>
+                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
+                                    class="fas fa-heart" aria-hidden="true"></i> {{post.likes}}</li>
+                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
+                                    class="fas fa-comment" aria-hidden="true"></i> {{post.count}}</li>
+                        </ul>
+
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- End of gallery -->
+
+        {% comment %} <div class="loader"></div> {% endcomment %}
+
+    </div>
+    <!-- End of container -->
+
+</main>
+{% endblock container %}

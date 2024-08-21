@@ -1,0 +1,27 @@
+{% extends "sidebar.html" %}
+{% load static %}
+
+{% block container %}
+    <div class="Editprofile">
+        <form action="" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+
+            <div class="profile-picture-section">
+                <label for="id_profile_picture">Profile Picture:</label>
+                {% if profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Current Image" class="current-image">
+                {% else %}
+                    <img src="{% static 'assets1/default-user.png' %}" alt="Current Image" class="current-image">
+                {% endif %}
+                {{ form.profile_picture }}
+            </div>
+
+            <div class="bio-section">
+                <label for="id_bio">Bio:</label>
+                {{ form.bio }}
+            </div>
+
+            <input type="submit" value="Save">
+        </form>
+    </div>
+{% endblock container %}

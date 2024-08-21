@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for archive in archive  %}
+        <li style="padding-top: 100px;">
+            {{archive.file}}
+        </li>
+    {% endfor %}
+
+{% endblock content %}

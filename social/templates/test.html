@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Instagram</title>
+    </head>
+
+    <body>
+        <style>
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: Arial, sans-serif;
+                overflow: hidden;
+            }
+
+            .container {
+                display: flex;
+                height: 90vh;
+                width: 70%;
+                margin: 5vh auto;
+                position: relative;
+            }
+
+            .container aside {
+                width: 45%;
+                background: #f2f2f2;
+            }
+
+            .container aside img {
+                width: 100%;
+                height: 100%;
+                background-position: center;
+                background-size: cover;
+            }
+
+            .container main {
+                width: 45%;
+                height: 100%;
+                position: relative;
+                overflow-x: hidden;
+                left: 0;
+                scrollbar-width: none;
+            }
+
+            .container main .content {
+                width: 100%;
+                height: 130%;
+                background-color: aquamarine;
+                text-align: center;
+                overflow-y: auto;
+
+            }
+
+            .container main .head {
+                color: black;
+                background-color: rgb(227, 149, 149);
+                width: 100%;
+                height: 8vh;
+                z-index: 1;
+                position: fixed;
+                width: 31.5%;
+                display: flex;
+            }
+        </style>
+        <div class="container">
+
+            <aside>
+                <img src="{{post.picture.url}}" alt="Side Image">
+            </aside>
+            <main>
+                <div class="head" >
+                    <img src="{{post.user.profile.profile_picture.url}}" alt=""
+                         style="height: 50px; width: 50px; background-size: cover; border-radius: 50%; margin-left: 20px; margin-top: 5px;">
+                    <p style="margin-left: 20px; padding-top: 5px; font-size: 18px;"><a href="" style="text-decoration: none;">{{post.user.username}}</a></p>
+                </div>
+
+                <div class="content">
+                    {% for comment in post.comments.all %}
+                        <div class="comment" style="display: flex; height: 60px; margin-left: 20px;">
+                            <img src="{{comment.user.profile.profile_picture.url}}" alt=""
+                                 style="height: 35px; width: 35px; background-size: cover; border-radius: 50%; margin-top:65px">
+                            <p style='padding-top:60px; margin-left: 10px;'>{{comment.comment}}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="footer">
+                    <h1>bottom</h1>
+                </div>
+
+            </main>
+            <p><a href="../index">close</a></p>
+        </div>
+    </body>
+
+</html>

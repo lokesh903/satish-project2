@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="Stories" style="margin-top: 20vh;">
+        <div class="story">
+            <form action="{% url 'addstory' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+{% endblock content %}
